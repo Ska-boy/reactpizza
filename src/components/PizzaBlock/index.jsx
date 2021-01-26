@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 const PizzaBlock = (props) => {
@@ -6,12 +6,24 @@ const PizzaBlock = (props) => {
   const sizes = [26, 30, 40];
   const [activeType, setactiveType] = useState(props.types[0]);
   const [activeSize, setactiveSize] = useState(props.sizes[0]);
+  let handleAdd = props.item;
+  handleAdd.type = typesNames[activeType];
+  handleAdd.size = activeSize;
+
+  useEffect(() => {
+    handleAdd.type = typesNames[activeType];
+    handleAdd.size = activeSize;
+  }, [activeType, activeSize]);
 
   const onSelectType = (index) => {
     setactiveType(index);
   };
   const onSelectSize = (index) => {
     setactiveSize(index);
+  };
+
+  const onClickAdd = (item) => {
+    props.onAddCart(item);
   };
 
   return (
@@ -48,7 +60,7 @@ const PizzaBlock = (props) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {props.price} ₽</div>
-        <div className="button button--outline button--add">
+        <div onClick={() => onClickAdd(handleAdd)} className="button button--outline button--add">
           <svg
             width="12"
             height="12"

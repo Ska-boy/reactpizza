@@ -6,6 +6,7 @@
 
 body {
   background-color: $background;
+  overflow-y: scroll;
 }
 
 .wrapper {
@@ -19,6 +20,7 @@ body {
 
 .content {
   padding: 40px 0;
+  box-sizing: border-box;
 
   &__title {
     margin: 35px 0;
@@ -27,7 +29,8 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
+    column-gap: 35px;
   }
 
   &__top {
@@ -112,7 +115,7 @@ body {
     border-top: 1px solid $gray-line;
     padding-top: 30px;
     margin-top: 30px;
-
+    box-sizing: border-box;
     &-img {
       display: flex;
       align-items: center;

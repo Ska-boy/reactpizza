@@ -1,10 +1,9 @@
 import React from 'react';
 
-const SortPopup = ({ items }) => {
+const SortPopup = ({ activeSortType, onClickSort, items }) => {
   const [activeButton, setActiveButton] = React.useState(false);
-  const [activeItem, setActiveItem] = React.useState(0);
   const sortElement = React.useRef();
-  const activeLabel = items[activeItem].name;
+  const activeLabel = items.find((obj) => obj.type == activeSortType).name;
 
   const handleOutsideClick = (e) => {
     if (!e.path.includes(sortElement.current)) {
@@ -17,13 +16,12 @@ const SortPopup = ({ items }) => {
   };
 
   const onSelectItem = (index) => {
-    setActiveItem(index);
+    onClickSort(index);
     setActiveButton(false);
   };
 
   React.useEffect(() => {
     document.body.addEventListener('click', handleOutsideClick);
-    console.log(sortElement);
   }, []);
 
   return (
@@ -50,8 +48,8 @@ const SortPopup = ({ items }) => {
             {items &&
               items.map((a, key) => (
                 <li
-                  className={activeItem === key ? 'active' : ''}
-                  onClick={() => onSelectItem(key)}
+                  className={activeSortType === a.type ? 'active' : ''}
+                  onClick={() => onSelectItem(a.type)}
                   key={key}>
                   {a.name}
                 </li>

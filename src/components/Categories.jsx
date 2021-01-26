@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const Categories = ({ items, onClick }) => {
-  const [state, setState] = useState(null);
-
-  const setActiveItem = (index) => {
-    setState(index);
-    onClick(index);
-  };
-
+const Categories = ({ activeCategory, items, onClickItem }) => {
   return (
     <div className="categories">
       <ul>
-        <li className={state === null ? 'active' : ''} onClick={() => setActiveItem(null)}>
+        <li className={activeCategory === null ? 'active' : ''} onClick={() => onClickItem(null)}>
           Все
         </li>
         {items &&
           items.map((a, key) => (
             <li
-              className={state === key ? 'active' : ''}
-              onClick={() => setActiveItem(key)}
+              className={activeCategory === key ? 'active' : ''}
+              onClick={() => onClickItem(key)}
               key={key}>
               {a}
             </li>
